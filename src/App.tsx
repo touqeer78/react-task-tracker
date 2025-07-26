@@ -28,7 +28,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="task-app">
       <h1>Task Tracker</h1>
       <AddTaskForm onAdd={handleAddTask} />
       <TaskList

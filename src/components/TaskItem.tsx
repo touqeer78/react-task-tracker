@@ -8,16 +8,22 @@ interface TaskItemProps {
 }
 
 const TaskItem: React.FC<TaskItemProps> = ({ task, onToggle, onDelete }) => (
-  <li>
+  <li className="task-item">
     <label>
       <input
         type="checkbox"
         checked={task.completed}
         onChange={() => onToggle(task.id)}
       />
-      {task.title}
+      <span className={`task-title ${task.completed ? "completed" : ""}`}>
+        {task.title}
+      </span>
     </label>
-    <button onClick={() => onDelete(task.id)} style={{ marginLeft: "8px" }}>
+    <button
+      className="delete-button"
+      onClick={() => onDelete(task.id)}
+      style={{ marginLeft: "8px" }}
+    >
       Delete
     </button>
   </li>
