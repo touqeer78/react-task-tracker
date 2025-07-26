@@ -1,26 +1,43 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { Task } from "./types";
+import TaskList from "./components/TaskList";
+import AddTaskForm from "./components/AddTaskForm";
 
-function App() {
+const App: React.FC = () => {
+  const [tasks, setTasks] = useState<Task[]>([]);
+
+  const handleAddTask = (title: string) => {
+    const newTask: Task = {
+      id: Date.now(),
+      title,
+      completed: false,
+    };
+    setTasks([newTask, ...tasks]);
+  };
+
+  const handleToggleTask = (id: number) => {
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task
+      )
+    );
+  };
+
+  const handleDeleteTask = (id: number) => {
+    setTasks(tasks.filter((task) => task.id !== id));
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Task Tracker</h1>
+      <AddTaskForm onAdd={handleAddTask} />
+      <TaskList
+        tasks={tasks}
+        onToggle={handleToggleTask}
+        onDelete={handleDeleteTask}
+      />
     </div>
   );
-}
+};
 
 export default App;
