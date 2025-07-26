@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Task } from "./types";
 import TaskList from "./components/TaskList";
 import AddTaskForm from "./components/AddTaskForm";
+import "./App.css"; // Assuming you have some styles in App.css
 
 const App: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
