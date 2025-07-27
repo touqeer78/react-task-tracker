@@ -1,39 +1,50 @@
+import "./setup"; // loads env variables first
 import express from "express";
 import cors from "cors";
+import supabase from "./supabase";
 
+console.log("Supabase URL:", process.env.SUPABASE_URL);
 const app = express();
 const PORT = 4000;
 
 app.use(cors());
 app.use(express.json());
 
-let tasks: { id: number; title: string; completed: boolean }[] = [];
-
-app.get("/tasks", (req, res) => {
-  res.json(tasks);
+app.get("/tasks", async (req, res) => {
+  const { data, error } = await supabase
+    .from("tasks")
+    .select("*")
+    .order("created_at", { ascending: false });
+  if (error) return res.status(500).json({ error: error.message });
+  res.json(data);
 });
 
-app.post("/tasks", (req, res) => {
+app.post("/tasks", async (req, res) => {
   const { title } = req.body;
-  const newTask = {
-    id: Date.now(),
-    title,
-    completed: false,
-  };
-  tasks.push(newTask);
-  res.status(201).json(newTask);
+  const { data, error } = await supabase
+    .from("tasks")
+    .insert([{ title }])
+    .select()
+    .single();
+  if (error) return res.status(500).json({ error: error.message });
+  res.status(201).json(data);
 });
 
-app.put("/tasks/:id", (req, res) => {
+app.put("/tasks/:id", async (req, res) => {
   const id = parseInt(req.params.id);
   const { completed } = req.body;
-  tasks = tasks.map((task) => (task.id === id ? { ...task, completed } : task));
+  const { error } = await supabase
+    .from("tasks")
+    .update({ completed })
+    .eq("id", id);
+  if (error) return res.status(500).json({ error: error.message });
   res.json({ message: "Updated" });
 });
 
-app.delete("/tasks/:id", (req, res) => {
+app.delete("/tasks/:id", async (req, res) => {
   const id = parseInt(req.params.id);
-  tasks = tasks.filter((task) => task.id !== id);
+  const { error } = await supabase.from("tasks").delete().eq("id", id);
+  if (error) return res.status(500).json({ error: error.message });
   res.json({ message: "Deleted" });
 });
 
