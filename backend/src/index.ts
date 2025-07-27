@@ -5,7 +5,7 @@ import supabase from "./supabase";
 
 console.log("Supabase URL:", process.env.SUPABASE_URL);
 const app = express();
-const PORT = 4000;
+const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
