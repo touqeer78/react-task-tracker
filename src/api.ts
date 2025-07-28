@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:4000",
+  baseURL: "https://toqi3-task-tracker.onrender.com",
 });
 
 export default API;
