@@ -19,6 +19,11 @@ const TaskItem: React.FC<TaskItemProps> = ({ task, onToggle, onDelete }) => (
         {task.title}
       </span>
     </label>
+    {task.due_date && (
+      <div style={{ fontSize: "0.85rem", color: "#666" }}>
+        Due: {new Date(task.due_date).toLocaleDateString()}
+      </div>
+    )}
     <button
       className="delete-button"
       onClick={() => onDelete(task.id)}

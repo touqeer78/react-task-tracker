@@ -16,8 +16,8 @@ const App: React.FC = () => {
       .catch((err) => console.error("Error fetching tasks", err));
   }, []);
 
-  const handleAddTask = (title: string) => {
-    API.post("/tasks", { title }).then((res) => {
+  const handleAddTask = (title: string, due_date: string) => {
+    API.post("/tasks", { title, due_date }).then((res) => {
       setTasks([res.data, ...tasks]);
     });
   };

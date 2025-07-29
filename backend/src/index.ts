@@ -2,6 +2,7 @@ import "./setup"; // loads env variables first
 import express from "express";
 import cors from "cors";
 import supabase from "./supabase";
+import { Task } from "./types";
 
 console.log("Supabase URL:", process.env.SUPABASE_URL);
 const app = express();
@@ -16,16 +17,18 @@ app.get("/tasks", async (req, res) => {
     .select("*")
     .order("created_at", { ascending: false });
   if (error) return res.status(500).json({ error: error.message });
-  res.json(data);
+  res.json(data as Task[]);
 });
 
 app.post("/tasks", async (req, res) => {
-  const { title } = req.body;
+  const { title, due_date } = req.body;
+
   const { data, error } = await supabase
     .from("tasks")
-    .insert([{ title }])
+    .insert([{ title, due_date }])
     .select()
     .single();
+
   if (error) return res.status(500).json({ error: error.message });
   res.status(201).json(data);
 });

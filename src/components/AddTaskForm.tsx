@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 
 interface AddTaskFormProps {
-  onAdd: (title: string) => void;
+  onAdd: (title: string, due_date: string) => void;
 }
 
 const AddTaskForm: React.FC<AddTaskFormProps> = ({ onAdd }) => {
   const [title, setTitle] = useState("");
+  const [dueDate, setDueDate] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (title.trim()) {
-      onAdd(title);
+      onAdd(title, dueDate);
       setTitle("");
     }
   };
@@ -23,6 +24,12 @@ const AddTaskForm: React.FC<AddTaskFormProps> = ({ onAdd }) => {
         onChange={(e) => setTitle(e.target.value)}
         placeholder="Add new task"
         className="add-task-input"
+      />
+      <input
+        type="date"
+        value={dueDate}
+        onChange={(e) => setDueDate(e.target.value)}
+        className="add-task-date"
       />
       <button type="submit" className="add-task-button">
         Add
