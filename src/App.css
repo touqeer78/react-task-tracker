@@ -15,7 +15,8 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 100%;
+  height: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -41,13 +42,15 @@
 
 .task-app {
   max-width: 600px;
-  margin: 40px auto;
-  padding: 20px;
+  margin: 20px auto;
+  padding: 16px;
   border: 1px solid #ccc;
   border-radius: 8px;
   background-color: #ffffff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
   text-align: left;
+  width: 90%;
+  box-sizing: border-box;
 }
 
 .task-app h1 {
@@ -149,4 +152,20 @@
   padding: 8px;
   border-radius: 4px;
   border: 1px solid #ccc;
+}
+@media (max-width: 480px) {
+  .task-app {
+    padding: 12px;
+  }
+
+  .add-task-form {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .add-task-input,
+  .add-task-button,
+  .add-task-date {
+    width: 100%;
+  }
 }
