@@ -43,7 +43,6 @@
 .task-app {
   max-width: 600px;
   margin: 20px auto;
-  padding: 16px;
   border: 1px solid #ccc;
   border-radius: 8px;
   background-color: #ffffff;
@@ -52,6 +51,7 @@
   width: 90%;
   overflow-x: hidden; /* add this line */
   box-sizing: border-box;
+  padding: 16px 20px; /* adds left-right breathing room */
 }
 
 .task-app h1 {
