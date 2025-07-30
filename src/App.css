@@ -50,6 +50,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
   text-align: left;
   width: 90%;
+  overflow-x: hidden; /* add this line */
   box-sizing: border-box;
 }
 
@@ -84,6 +85,7 @@
   border: 1px solid #ccc;
   min-width: 120px;
   box-sizing: border-box;
+  margin-right: 4px; /* Add this to keep space from the edge */
 }
 
 .add-task-button {
@@ -179,5 +181,11 @@
   .add-task-button,
   .add-task-date {
     width: 100%;
+  }
+}
+@media screen and (max-width: 768px) {
+  input[type="text"],
+  input[type="date"] {
+    font-size: 16px; /* critical: 16px or higher avoids iOS zoom */
   }
 }
